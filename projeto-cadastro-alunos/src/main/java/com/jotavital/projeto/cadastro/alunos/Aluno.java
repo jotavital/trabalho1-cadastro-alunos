@@ -13,10 +13,11 @@ import java.util.ArrayList;
  */
 public class Aluno {
     private String nome, cpf;
+    private float soma = 0;
     ArrayList<Float> notas = new ArrayList<>();
     
     public Aluno(String nome){
-        
+        this.nome = nome;
     }
     
     public Aluno(String nome, String cpf){
@@ -25,15 +26,28 @@ public class Aluno {
     }
     
     void insereNota(float nota){
-        
+        this.notas.add(nota);
     }
     
     float calculaNotas(){
-        return 0;
+        for(int i = 0; i < notas.size(); i++){
+            soma += this.notas.get(i);
+        }
+        
+        return soma;
     }
     
     void listar(){
+        System.out.println("---------------");
+        System.out.println("Lista de alunos");
+        System.out.println("\nNome: " + this.nome);
+        System.out.println("CPF: " + this.cpf);
         
+        for(int i = 0; i < notas.size(); i++){
+            System.out.println("Nota " + (i + 1) + ": " + this.notas.get(i));
+        }
+        
+        System.out.println("Total: " + this.soma);
     }
 
     public String getNome() {

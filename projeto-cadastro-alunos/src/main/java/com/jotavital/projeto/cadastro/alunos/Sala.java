@@ -12,23 +12,10 @@ import java.util.ArrayList;
  * @author picle
  */
 public class Sala {
-    String codigo;
     ArrayList<Aluno> listaAlunosSala;
     
     public Sala(){
        listaAlunosSala = new ArrayList<>(); 
-    }
-    
-    public Sala(String codigoSala){
-        this.codigo = codigoSala;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public ArrayList<Aluno> getListaAlunosSala() {
@@ -41,13 +28,25 @@ public class Sala {
     
     void insereAluno(Aluno al){
         this.listaAlunosSala.add(al);
+        al.calculaNotas();
     }
     
     void listarTodos(){
-        
+        for(Aluno a:listaAlunosSala){
+            a.listar();
+        }
     }
     
     void verSituacoes(){
-        
+        for(Aluno a:listaAlunosSala){
+            a.listar();
+            
+            if(a.calculaNotas() < 70){
+                System.out.println("Situação: Reprovado" );
+            }else{
+                System.out.println("Situação: Aprovado" );
+            }
+            
+        }
     }
 }

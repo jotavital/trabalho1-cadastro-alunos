@@ -14,17 +14,20 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args){
-        int opc, qtdNotas, salaExiste = 0;
+        int opc, qtdNotas;
         float nota;
-        String nomeAluno, cpfAluno, codSala;
+        String nomeAluno, cpfAluno;
         Scanner entrada = new Scanner(System.in);
         Aluno al;
-        ArrayList<Sala> sal = new ArrayList<Sala>();
+        Sala sala = null;
+        ArrayList<Sala> sal = new ArrayList<>();
         
         do{
-            System.out.println("\nMENU");
-            System.out.println("1 - Inserir");
-            System.out.println("2 - Listar");
+            System.out.println("\n---------------");
+            System.out.println("     MENU");
+            System.out.println("Escolha uma opção:");
+            System.out.println("1 - Inserir aluno");
+            System.out.println("2 - Listar alunos");
             System.out.println("3 - Situações");
             System.out.println("0 - Sair");
             opc = entrada.nextInt();
@@ -32,44 +35,41 @@ public class Main {
             
             switch(opc){
                 case 1:
-                    System.out.println("\nInserir aluno");
+                    System.out.println("\n---------------");
+                    System.out.println("Inserir aluno");
                     System.out.println("\nNome:");
                     nomeAluno = entrada.nextLine();
-                    System.out.println("\nCPF:");
+                    System.out.println("CPF:");
                     cpfAluno = entrada.nextLine();
-                    System.out.println("\nQuantidade de notas:");
+                    System.out.println("Quantidade de notas:");
                     qtdNotas = entrada.nextInt();
                     
-                    for(int i = 0; i < qtdNotas; i++){
-                        System.out.println("\nNota " + (i+1) + ":");
-                        nota = entrada.nextFloat();
-                    }
-                    
                     al = new Aluno(nomeAluno, cpfAluno);
-                    System.out.println("\nCodigo da Sala:");
-                    codSala = entrada.nextLine();
                     
-                    for(int i = 0; i < sal.size(); i++){
-                        if(codSala.equals(sal.get(i).getCodigo())){
-                            salaExiste = 1;
-                            break;
-                        }
+                    for(int i = 0; i < qtdNotas; i++){
+                        System.out.println("Nota " + (i+1) + ":");
+                        nota = entrada.nextFloat();
+                        al.insereNota(nota);
                     }
                     
-                    if(salaExiste == 1){
-                        //cadastrar aluno naquela sala
-                    }else{
-                        System.out.println("\nNão existe uma sala com esse código!");
-                    }
+                    sala = new Sala();
+                    sal.add(sala);
+                    sala.insereAluno(al);
                     break;
-
+                    
                 case 2:
+                    for(Sala s:sal){
+                       s.listarTodos();
+                    }
                     break;
                 case 3:
+                    sala.verSituacoes();
                     break;
-                case 0:
                     
+                case 0:
+                    System.out.println("Saindo..." );
                     break;
+                    
                 default:
                     System.out.println("\nOpção Inválida!");
             }
