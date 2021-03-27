@@ -12,44 +12,76 @@ import java.util.ArrayList;
  * @author picle
  */
 public class Aluno {
-    private String nome, cpf;
-    private float soma = 0;
-    ArrayList<Float> notas = new ArrayList<>();
+    String nome, cpf, situacao;
+    float total = 0;
+    ArrayList<Float> listaNotas = new ArrayList<>();
     
-    public Aluno(String nome){
-        this.nome = nome;
+    public Aluno(){
+        
     }
     
     public Aluno(String nome, String cpf){
-        this.nome = nome;
-        this.cpf = cpf;
+        setNome(nome);
+        setCpf(cpf);
     }
-    
-    void insereNota(float nota){
-        this.notas.add(nota);
-    }
-    
-    float calculaNotas(){
-        for(int i = 0; i < notas.size(); i++){
-            soma += this.notas.get(i);
-        }
-        
-        return soma;
-    }
-    
+
     void listar(){
-        System.out.println("---------------");
-        System.out.println("Lista de alunos");
         System.out.println("\nNome: " + this.nome);
         System.out.println("CPF: " + this.cpf);
         
-        for(int i = 0; i < notas.size(); i++){
-            System.out.println("Nota " + (i + 1) + ": " + this.notas.get(i));
+        for(int i = 0; i < listaNotas.size(); i++){
+            System.out.println("Nota " + (i + 1) + ": " + this.listaNotas.get(i));
         }
         
-        System.out.println("Total: " + this.soma);
+        System.out.println("Total: " + this.total);
+    }
+    
+    void listarSituacoes(){
+        System.out.println("\nNome: " + this.nome);
+        System.out.println("Total: " + this.total);
+        System.out.println("Situação: " + this.situacao);
+    }
+    
+    void insereNota(float nota){
+        listaNotas.add(nota);
+    }
+    
+    void calculaNotas(){
+        for(float n:listaNotas){
+            total += n;
+        }
+        
+        if(total >= 70){
+            this.situacao = "Aprovado";
+        }else{
+            this.situacao = "Reprovado";
+        }
+    }
+    
+    public String getSituacao() {
+        return situacao;
     }
 
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+    public ArrayList<Float> getListaNotas() {
+        return listaNotas;
+    }
+
+    public void setListaNotas(ArrayList<Float> listaNotas) {
+        this.listaNotas = listaNotas;
+    }
+    
     public String getNome() {
         return nome;
     }
@@ -64,14 +96,6 @@ public class Aluno {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public ArrayList<Float> getNotas() {
-        return notas;
-    }
-
-    public void setNotas(ArrayList<Float> notas) {
-        this.notas = notas;
     }
     
 }

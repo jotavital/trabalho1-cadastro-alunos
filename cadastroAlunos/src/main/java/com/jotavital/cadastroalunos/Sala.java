@@ -12,41 +12,38 @@ import java.util.ArrayList;
  * @author picle
  */
 public class Sala {
-    ArrayList<Aluno> listaAlunosSala;
+    ArrayList<Aluno> listaDeAlunos;
     
     public Sala(){
-       listaAlunosSala = new ArrayList<>(); 
-    }
-
-    public ArrayList<Aluno> getListaAlunosSala() {
-        return listaAlunosSala;
-    }
-
-    public void setListaAlunosSala(ArrayList<Aluno> listaAlunosSala) {
-        this.listaAlunosSala = listaAlunosSala;
+        this.listaDeAlunos = new ArrayList<>();
     }
     
-    void insereAluno(Aluno al){
-        this.listaAlunosSala.add(al);
-        al.calculaNotas();
+    void insereAluno(Aluno aluno){
+        aluno.calculaNotas();
+        listaDeAlunos.add(aluno);
     }
     
-    void listarTodos(){
-        for(Aluno a:listaAlunosSala){
+    void listarAlunos(){
+        System.out.println("\n---------------");
+        System.out.println("Lista de alunos");
+        for(Aluno a:listaDeAlunos){
             a.listar();
         }
     }
     
-    void verSituacoes(){
-        for(Aluno a:listaAlunosSala){
-            a.listar();
-            
-            if(a.calculaNotas() < 70){
-                System.out.println("Situação: Reprovado" );
-            }else{
-                System.out.println("Situação: Aprovado" );
-            }
-            
+    void situacoes(){
+        System.out.println("\n---------------");
+        System.out.println("Situações");
+        for(Aluno a:listaDeAlunos){
+            a.listarSituacoes();
         }
+    }
+
+    public ArrayList<Aluno> getListaDeAlunos() {
+        return listaDeAlunos;
+    }
+
+    public void setListaDeAlunos(ArrayList<Aluno> listaDeAlunos) {
+        this.listaDeAlunos = listaDeAlunos;
     }
 }
