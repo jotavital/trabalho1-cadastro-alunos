@@ -17,15 +17,16 @@ public class Main {
     
     public static void main(String[] args) {
         int opc, qtdNotas, codigoSala, salaJaExiste = 0;
-        String nome, cpf, nomeSala;
+        String nome, cpf, nomeSala, titulo;
         Aluno al;
-        Sala sala = null, salaEncontrada;
+        Sala sala = null, salaEncontrada = null;
         ArrayList<Sala> salas = new ArrayList<>();
         Scanner teclado = new Scanner(System.in);
         
         do{
             linha();
-            System.out.println("SISTEMA DE ALUNOS\n");
+            titulo = "SISTEMA DE ALUNOS";
+            imprimirTitulo(titulo);
             System.out.println("1 - Cadastrar aluno");
             System.out.println("2 - Listar alunos");
             System.out.println("3 - Excluir alunos");
@@ -41,7 +42,8 @@ public class Main {
             switch(opc){
                 case 1:
                     linha();
-                    System.out.println("CADASTRAR ALUNO");
+                    titulo = "CADASTRAR ALUNO";
+                    imprimirTitulo(titulo);
                     
                     if(naoExisteSalaNenhuma(salas)){
                         break;
@@ -75,7 +77,8 @@ public class Main {
                     break;
                 case 2:
                     linha();
-                    System.out.println("LISTAR ALUNOS");
+                    titulo = "LISTAR ALUNOS";
+                    imprimirTitulo(titulo);
                     
                     if(naoExisteSalaNenhuma(salas)){
                         break;
@@ -98,13 +101,39 @@ public class Main {
                     
                     break;
                 case 3:
+                    boolean alunoExcluido = false;
                     linha();
-                    System.out.println("EXCLUIR ALUNOS");
+                    titulo = "EXCLUIR ALUNOS";
+                    imprimirTitulo(titulo);
+                    
+                    if(naoExisteSalaNenhuma(salas)){
+                        
+                    }else{
+                        System.out.println("Cpf do aluno: ");
+                        cpf = teclado.nextLine();
+                        
+                        for(Sala s:salas){
+                            Aluno alunoEncontrado = s.procuraAluno(cpf);
+                            
+                            if(alunoEncontrado != null){
+                                s.excluirAluno(alunoEncontrado);
+                                alunoExcluido = true;
+                            }
+                        }
+                        
+                        if(alunoExcluido){
+                            System.out.println("\nAluno excluido com sucesso!");
+                        }else{
+                            System.out.println("\nAluno não encontrado!");
+                        }
+                    }
                     
                     break;
                 case 4:
                     linha();
-                    System.out.println("CRIAR SALA");
+                    titulo = "CRIAR SALA";
+                    imprimirTitulo(titulo);
+                    
                     System.out.println("\nCodigo: ");
                     codigoSala = teclado.nextInt();
                     teclado.nextLine();
@@ -125,16 +154,47 @@ public class Main {
                     
                     break;
                 case 5:
+                    linha();
+                    titulo = "LISTAR SALAS";
+                    imprimirTitulo(titulo);
+                    
                     listarSalas(salas);
                     
                     break;
                 case 6:
-                    //excluir sala
+                    boolean salaExcluida = false;
+                    linha();
+                    titulo = "EXCLUIR SALAS";
+                    imprimirTitulo(titulo);
+                    
+                    if(naoExisteSalaNenhuma(salas)){
+                        
+                    }else{
+                        System.out.println("Código da sala: ");
+                        codigoSala = teclado.nextInt();
+                        teclado.nextLine();
+                        
+                        for(Sala s:salas){
+                            salaEncontrada = procuraSala(salas, codigoSala);
+                            
+                            if(salaEncontrada != null){
+                                salaExcluida = true;
+                            }
+                        }
+                        
+                        if(salaExcluida){
+                            salas.remove(salaEncontrada);
+                            System.out.println("\nSala excluída com sucesso!");
+                        }else{
+                            System.out.println("\nSala não encontrada!");
+                        }
+                    }
                     
                     break;
                 case 7:
                     linha();
-                    System.out.println("SITUAÇÕES");
+                    titulo = "SITUAÇÕES";
+                    imprimirTitulo(titulo);
                     
                     if(naoExisteSalaNenhuma(salas)){
                         break;
@@ -157,7 +217,9 @@ public class Main {
                     
                     break;
                 case 0:
-                    System.out.println("\nSAINDO...");
+                    linha();
+                    titulo = "SAINDO...";
+                    imprimirTitulo(titulo);
                     
                     break;
                 default:
@@ -173,7 +235,6 @@ public class Main {
     }
     
     public static void listarSalas(ArrayList<Sala> salas){
-        System.out.println("LISTAR SALAS");
         
         if(!naoExisteSalaNenhuma(salas)){
             for(Sala s:salas){
@@ -217,7 +278,11 @@ public class Main {
     }
     
     public static void linha(){
-        System.out.println("\n--------------------\n");
+        System.out.println("\n----------------------------------------\n");
+    }
+    
+    public static void imprimirTitulo(String titulo){
+        System.out.println("\t" + titulo + "\n");
     }
     
 }

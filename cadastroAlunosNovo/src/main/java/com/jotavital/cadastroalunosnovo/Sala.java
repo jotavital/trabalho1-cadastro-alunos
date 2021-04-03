@@ -24,6 +24,10 @@ public class Sala {
         this.alunos.add(al);
     }
     
+    public void excluirAluno(Aluno al){
+        alunos.remove(al);
+    }
+    
     public void listarAlunos(){
         if(salaVazia()){
             
@@ -66,6 +70,17 @@ public class Sala {
             return true;
         }else
             return false;
+    }
+    
+    public Aluno procuraAluno(String cpf){
+        
+        for(Aluno a:alunos){
+            if(a.getCpf().equals(cpf)){
+                return a;
+            }
+        }
+        
+        return null;
     }
 
     public int getCodigo() {

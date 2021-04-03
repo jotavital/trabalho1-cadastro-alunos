@@ -64,5 +64,4 @@ public class Aluno {
         this.notasAluno = notasAluno;
     }
     
-    
 }
